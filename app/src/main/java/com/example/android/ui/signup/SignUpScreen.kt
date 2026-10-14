@@ -1,6 +1,7 @@
 package com.example.android.ui.signup
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,8 +19,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -36,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -51,7 +51,7 @@ import com.example.android.ui.components.NovaPasswordField
 import com.example.android.ui.components.NovaPrimaryCtaButton
 import com.example.android.ui.components.NovaSignUpBrandHeader
 import com.example.android.ui.components.NovaSocialAuthRow
-import com.example.android.ui.theme.NovaCustomShapes
+import com.example.android.ui.components.NovaWavyBackground
 import com.example.android.ui.theme.NovaSpacing
 import com.example.android.ui.theme.NovaTheme
 
@@ -103,67 +103,89 @@ fun SignUpScreen(
 ) {
     val scrollState = rememberScrollState()
 
-    Scaffold(
-        modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.surface,
-        snackbarHost = { SnackbarHost(snackbarHostState) }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .statusBarsPadding()
-                .verticalScroll(scrollState)
-                .padding(horizontal = 20.dp, vertical = 12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // Top Bar Navigation Back Action
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(48.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(
-                    onClick = { onAction(SignUpUiAction.BackClicked) },
-                    modifier = Modifier
-                        .size(44.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.surfaceContainerLow)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_arrow_back),
-                        contentDescription = "Back to sign in",
-                        tint = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
+    Box(modifier = modifier.fillMaxSize()) {
+        // Shared Dynamic Wavy Background
+        NovaWavyBackground()
 
-            // Compact Brand Header
-            NovaSignUpBrandHeader()
-
-            Spacer(modifier = Modifier.height(NovaSpacing.md))
-
-            // White Rounded Registration Form Card
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            containerColor = Color.Transparent,
+            snackbarHost = { SnackbarHost(snackbarHostState) }
+        ) { innerPadding ->
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(MaterialTheme.shapes.large)
-                    .background(Color.White)
-                    .padding(NovaSpacing.md)
-                    .shadow(1.dp, MaterialTheme.shapes.large, spotColor = Color.Black.copy(alpha = 0.05f))
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .statusBarsPadding()
+                    .verticalScroll(scrollState)
+                    .padding(horizontal = 20.dp, vertical = 12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Full Name Field
-                NovaFormField(
-                    value = uiState.fullName,
-                    onValueChange = { onAction(SignUpUiAction.FullNameChanged(it)) },
-                    label = "Full Name",
-                    placeholder = "Alex Morgan",
-                    leadingIconRes = R.drawable.ic_person,
-                    isError = uiState.nameError != null,
-                    errorMessage = uiState.nameError
-                )
+                // Top Bar Navigation Back Action in floating frosted circle
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    IconButton(
+                        onClick = { onAction(SignUpUiAction.BackClicked) },
+                        modifier = Modifier
+                            .size(44.dp)
+                            .shadow(6.dp, CircleShape, spotColor = Color(0xFF2514A5).copy(alpha = 0.15f))
+                            .clip(CircleShape)
+                            .background(Color.White.copy(alpha = 0.94f))
+                            .border(1.dp, Color.White, CircleShape)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_arrow_back),
+                            contentDescription = "Back to sign in",
+                            tint = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                }
+
+                // Compact Brand Header
+                NovaSignUpBrandHeader()
+
+                Spacer(modifier = Modifier.height(NovaSpacing.md))
+
+                // White Rounded Registration Form Card with Glassmorphic Styling
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .shadow(
+                            elevation = 12.dp,
+                            shape = RoundedCornerShape(28.dp),
+                            spotColor = Color(0xFF2514A5).copy(alpha = 0.18f),
+                            ambientColor = Color.Black.copy(alpha = 0.04f)
+                        )
+                        .clip(RoundedCornerShape(28.dp))
+                        .background(Color.White.copy(alpha = 0.94f))
+                        .border(
+                            width = 1.5.dp,
+                            brush = Brush.verticalGradient(
+                                listOf(
+                                    Color.White,
+                                    Color(0xFFC7D2FE).copy(alpha = 0.7f),
+                                    Color(0xFFE0E0FF).copy(alpha = 0.4f)
+                                )
+                            ),
+                            shape = RoundedCornerShape(28.dp)
+                        )
+                        .padding(horizontal = 20.dp, vertical = 22.dp)
+                ) {
+                    // Full Name Field
+                    NovaFormField(
+                        value = uiState.fullName,
+                        onValueChange = { onAction(SignUpUiAction.FullNameChanged(it)) },
+                        label = "Full Name",
+                        placeholder = "Alex Morgan",
+                        leadingIconRes = R.drawable.ic_person,
+                        isError = uiState.nameError != null,
+                        errorMessage = uiState.nameError
+                    )
 
                 Spacer(modifier = Modifier.height(NovaSpacing.sm))
 
@@ -174,7 +196,7 @@ fun SignUpScreen(
                     label = "Email address",
                     placeholder = "alex.morgan@domain.com",
                     leadingIconRes = R.drawable.ic_mail,
-                    keyboardType = KeyboardType.Email,
+                    keyboardType = KeyboardType.Text,
                     isError = uiState.emailError != null,
                     errorMessage = uiState.emailError
                 )
@@ -361,33 +383,52 @@ fun SignUpScreen(
 
             Spacer(modifier = Modifier.height(NovaSpacing.lg))
 
-            // Footer Sign In Link
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxWidth()
+            // Footer Sign In Link in a floating frosted pill
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "Already have an account?",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .shadow(
+                            elevation = 6.dp,
+                            shape = RoundedCornerShape(20.dp),
+                            spotColor = Color(0xFF2514A5).copy(alpha = 0.15f)
+                        )
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(Color.White.copy(alpha = 0.94f))
+                        .border(
+                            width = 1.dp,
+                            color = Color.White,
+                            shape = RoundedCornerShape(20.dp)
+                        )
+                        .padding(horizontal = 20.dp, vertical = 10.dp)
+                ) {
+                    Text(
+                        text = "Already have an account?",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
 
-                Spacer(modifier = Modifier.width(6.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
 
-                Text(
-                    text = "Sign In",
-                    style = MaterialTheme.typography.labelLarge.copy(
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
-                    ),
-                    modifier = Modifier.clickable { onAction(SignUpUiAction.SignInClicked) }
-                )
+                    Text(
+                        text = "Sign In",
+                        style = MaterialTheme.typography.labelLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        ),
+                        modifier = Modifier.clickable { onAction(SignUpUiAction.SignInClicked) }
+                    )
+                }
             }
 
-            Spacer(modifier = Modifier.height(NovaSpacing.lg))
+            Spacer(modifier = Modifier.height(NovaSpacing.md))
         }
     }
+}
 }
 
 @Preview(showBackground = true, widthDp = 390, heightDp = 844)

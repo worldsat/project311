@@ -330,7 +330,8 @@ fun NovaPasswordField(
     leadingIconRes: Int = R.drawable.ic_lock,
     trailingValidationIcon: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
-    errorMessage: String? = null
+    errorMessage: String? = null,
+    keyboardType: KeyboardType = KeyboardType.Text
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
@@ -388,7 +389,7 @@ fun NovaPasswordField(
                 focusedTextColor = MaterialTheme.colorScheme.onSurface,
                 unfocusedTextColor = MaterialTheme.colorScheme.onSurface
             ),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()

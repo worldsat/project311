@@ -1,8 +1,6 @@
 package com.example.android.ui.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,14 +28,13 @@ import com.example.android.ui.theme.NovaSpacing
 
 /**
  * Top app bar matching the Nova User Profile reference.
- * Includes back navigation, brand logo, centered title, edit/settings actions, and small avatar thumbnail.
+ * Includes back navigation, brand logo, centered title, and edit/settings actions.
  */
 @Composable
 fun NovaTopAppBar(
     onBackClick: () -> Unit,
     onEditClick: () -> Unit,
     onSettingsClick: () -> Unit,
-    onAvatarClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -85,7 +82,7 @@ fun NovaTopAppBar(
             )
         }
 
-        // Right Actions (Edit, Settings, Mini Avatar)
+        // Right Actions (Edit, Settings)
         Row(
             modifier = Modifier.align(Alignment.CenterEnd),
             verticalAlignment = Alignment.CenterVertically
@@ -113,18 +110,6 @@ fun NovaTopAppBar(
                     modifier = Modifier.size(20.dp)
                 )
             }
-
-            Spacer(modifier = Modifier.width(NovaSpacing.xxs))
-
-            Image(
-                painter = painterResource(id = R.drawable.avatar_elena),
-                contentDescription = "Profile Thumbnail",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(32.dp)
-                    .clip(CircleShape)
-                    .clickable(onClick = onAvatarClick)
-            )
         }
     }
 }

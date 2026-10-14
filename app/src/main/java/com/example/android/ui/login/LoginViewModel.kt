@@ -22,9 +22,7 @@ class LoginViewModel : ViewModel() {
                 _uiState.update {
                     it.copy(
                         email = action.value,
-                        emailError = if (action.value.isNotBlank() && !EMAIL_REGEX.matches(action.value)) {
-                            "Please enter a valid email address"
-                        } else null
+                        emailError = null
                     )
                 }
             }

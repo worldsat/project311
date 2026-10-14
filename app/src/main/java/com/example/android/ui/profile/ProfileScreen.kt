@@ -90,7 +90,6 @@ fun ProfileScreen(
                 onBackClick = { onAction(ProfileUiAction.BackClicked) },
                 onEditClick = { onAction(ProfileUiAction.EditProfileClicked) },
                 onSettingsClick = { onAction(ProfileUiAction.SettingsClicked) },
-                onAvatarClick = { onAction(ProfileUiAction.EditProfileClicked) },
                 modifier = Modifier.statusBarsPadding()
             )
         },
