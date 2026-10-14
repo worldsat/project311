@@ -247,6 +247,7 @@ fun SignUpScreen(
                     onValueChange = { onAction(SignUpUiAction.ConfirmPasswordChanged(it)) },
                     label = "Confirm Password",
                     placeholder = "••••••••••••",
+                    leadingIconRes = R.drawable.ic_verified,
                     isPasswordVisible = uiState.isPasswordVisible,
                     onToggleVisibility = { onAction(SignUpUiAction.TogglePasswordVisibility) },
                     trailingValidationIcon = if (uiState.isConfirmPasswordMatching) {
@@ -273,14 +274,27 @@ fun SignUpScreen(
                         .padding(vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Checkbox(
-                        checked = uiState.acceptedTerms,
-                        onCheckedChange = { onAction(SignUpUiAction.ToggleTermsAccepted) },
-                        colors = CheckboxDefaults.colors(
-                            checkedColor = MaterialTheme.colorScheme.primary,
-                            uncheckedColor = MaterialTheme.colorScheme.outline
-                        )
-                    )
+                    Box(
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clip(RoundedCornerShape(4.dp))
+                            .background(
+                                if (uiState.acceptedTerms) MaterialTheme.colorScheme.primary
+                                else MaterialTheme.colorScheme.surfaceContainerHigh
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        if (uiState.acceptedTerms) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_check),
+                                contentDescription = null,
+                                tint = Color.White,
+                                modifier = Modifier.size(14.dp)
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.width(10.dp))
 
                     Row(
                         modifier = Modifier.weight(1f),
@@ -381,7 +395,13 @@ fun SignUpScreen(
 fun SignUpScreenPreview() {
     NovaTheme {
         SignUpScreen(
-            uiState = SignUpUiState(),
+            uiState = SignUpUiState(
+                fullName = "Alex Morgan",
+                email = "alex.morgan@domain.com",
+                password = "••••••••••••",
+                confirmPassword = "••••••••••••",
+                acceptedTerms = true
+            ),
             onAction = {}
         )
     }

@@ -25,8 +25,15 @@ fun NavHost(
     loginViewModel: LoginViewModel = remember { LoginViewModel() },
     signUpViewModel: SignUpViewModel = remember { SignUpViewModel() },
     profileViewModel: ProfileViewModel = remember { ProfileViewModel() },
+    startDestination: NovaScreen? = null,
     modifier: Modifier = Modifier
 ) {
+    androidx.compose.runtime.LaunchedEffect(startDestination) {
+        if (startDestination != null) {
+            mainViewModel.navigateTo(startDestination)
+        }
+    }
+
     val currentScreen by mainViewModel.currentScreen.collectAsState()
 
     // Back handling: navigates back to Login unless already at Login

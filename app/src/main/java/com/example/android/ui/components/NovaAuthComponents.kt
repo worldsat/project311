@@ -327,6 +327,7 @@ fun NovaPasswordField(
     isPasswordVisible: Boolean,
     onToggleVisibility: () -> Unit,
     modifier: Modifier = Modifier,
+    leadingIconRes: Int = R.drawable.ic_lock,
     trailingValidationIcon: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
     errorMessage: String? = null
@@ -351,7 +352,7 @@ fun NovaPasswordField(
             },
             leadingIcon = {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_lock),
+                    painter = painterResource(id = leadingIconRes),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(20.dp)
