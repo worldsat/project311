@@ -1,5 +1,6 @@
 package com.example.android.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -513,10 +514,16 @@ fun NovaSocialAuthRow(
             onClick = onGoogleClick,
             modifier = Modifier
                 .weight(1f)
-                .height(50.dp),
+                .height(50.dp)
+                .shadow(
+                    elevation = 3.dp,
+                    shape = NovaCustomShapes.ButtonPill,
+                    spotColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.08f)
+                ),
             shape = NovaCustomShapes.ButtonPill,
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.secondary.copy(alpha = 0.35f)),
             colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                containerColor = Color.White,
                 contentColor = MaterialTheme.colorScheme.onSurface
             ),
             elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
@@ -538,10 +545,16 @@ fun NovaSocialAuthRow(
             onClick = onAppleClick,
             modifier = Modifier
                 .weight(1f)
-                .height(50.dp),
+                .height(50.dp)
+                .shadow(
+                    elevation = 3.dp,
+                    shape = NovaCustomShapes.ButtonPill,
+                    spotColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.08f)
+                ),
             shape = NovaCustomShapes.ButtonPill,
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.secondary.copy(alpha = 0.35f)),
             colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                containerColor = Color.White,
                 contentColor = MaterialTheme.colorScheme.onSurface
             ),
             elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
@@ -573,10 +586,16 @@ fun NovaBiometricsButton(
         onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
-            .height(52.dp),
+            .height(52.dp)
+            .shadow(
+                elevation = 3.dp,
+                shape = RoundedCornerShape(16.dp),
+                spotColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.08f)
+            ),
         shape = RoundedCornerShape(16.dp),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.secondary.copy(alpha = 0.35f)),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+            containerColor = Color.White,
             contentColor = MaterialTheme.colorScheme.onSurface
         ),
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
@@ -590,7 +609,7 @@ fun NovaBiometricsButton(
         Spacer(modifier = Modifier.width(10.dp))
         Text(
             text = "Sign in with Biometrics",
-            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Medium)
+            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold)
         )
     }
 }

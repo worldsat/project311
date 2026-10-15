@@ -82,19 +82,52 @@ fun NovaWavyBackground(
             val width = size.width
             val height = size.height
 
+            // Density-scaled wave amplitudes and ribbon thicknesses for exact cross-platform parity
+            val wave1Amp = 25.dp.toPx()
+            val wave1Cp1 = 42.dp.toPx()
+            val wave1Cp2 = 38.dp.toPx()
+            val wave1End = 22.dp.toPx()
+
+            val wave2Amp = 32.dp.toPx()
+            val wave2Cp1 = 48.dp.toPx()
+            val wave2Cp2 = 44.dp.toPx()
+            val wave2End = 28.dp.toPx()
+
+            val ribbon1Amp = 35.dp.toPx()
+            val ribbon1Cp1 = 52.dp.toPx()
+            val ribbon1Cp2 = 50.dp.toPx()
+            val ribbon1End = 30.dp.toPx()
+            val ribbon1Width = 85.dp.toPx()
+
+            val ribbon2Amp = 40.dp.toPx()
+            val ribbon2Cp1 = 55.dp.toPx()
+            val ribbon2Cp2 = 45.dp.toPx()
+            val ribbon2End = 35.dp.toPx()
+            val ribbon2Width = 70.dp.toPx()
+
+            val botWave1Amp = 32.dp.toPx()
+            val botWave1Cp1 = 48.dp.toPx()
+            val botWave1Cp2 = 42.dp.toPx()
+            val botWave1End = 26.dp.toPx()
+
+            val botWave2Amp = 36.dp.toPx()
+            val botWave2Cp1 = 52.dp.toPx()
+            val botWave2Cp2 = 44.dp.toPx()
+            val botWave2End = 32.dp.toPx()
+
             // ----------------------------------------------------
             // 1. TOP WAVE LAYER 1 (Deep Royal Indigo to Violet)
             // ----------------------------------------------------
             val topWave1 = Path().apply {
                 reset()
                 moveTo(0f, 0f)
-                val startY = height * 0.17f + 25f * sin(phase1)
+                val startY = height * 0.17f + wave1Amp * sin(phase1)
                 lineTo(0f, startY)
                 val cp1X = width * 0.35f
-                val cp1Y = height * 0.17f + 42f * cos(phase1)
+                val cp1Y = height * 0.17f + wave1Cp1 * cos(phase1)
                 val cp2X = width * 0.68f
-                val cp2Y = height * 0.17f - 38f * sin(phase1)
-                val endY = height * 0.17f + 22f * cos(phase1)
+                val cp2Y = height * 0.17f - wave1Cp2 * sin(phase1)
+                val endY = height * 0.17f + wave1End * cos(phase1)
                 cubicTo(cp1X, cp1Y, cp2X, cp2Y, width, endY)
                 lineTo(width, 0f)
                 close()
@@ -120,13 +153,13 @@ fun NovaWavyBackground(
             val topWave2 = Path().apply {
                 reset()
                 moveTo(0f, 0f)
-                val startY = height * 0.21f + 32f * cos(phase2)
+                val startY = height * 0.21f + wave2Amp * cos(phase2)
                 lineTo(0f, startY)
                 val cp1X = width * 0.28f
-                val cp1Y = height * 0.21f - 48f * sin(phase2)
+                val cp1Y = height * 0.21f - wave2Cp1 * sin(phase2)
                 val cp2X = width * 0.72f
-                val cp2Y = height * 0.21f + 44f * cos(phase2)
-                val endY = height * 0.21f - 28f * sin(phase2)
+                val cp2Y = height * 0.21f + wave2Cp2 * cos(phase2)
+                val endY = height * 0.21f - wave2End * sin(phase2)
                 cubicTo(cp1X, cp1Y, cp2X, cp2Y, width, endY)
                 lineTo(width, 0f)
                 close()
@@ -149,13 +182,13 @@ fun NovaWavyBackground(
             // Luminous glowing neon stroke along top wave 2 crest
             val topCrestPath = Path().apply {
                 reset()
-                val startY = height * 0.21f + 32f * cos(phase2)
+                val startY = height * 0.21f + wave2Amp * cos(phase2)
                 moveTo(0f, startY)
                 val cp1X = width * 0.28f
-                val cp1Y = height * 0.21f - 48f * sin(phase2)
+                val cp1Y = height * 0.21f - wave2Cp1 * sin(phase2)
                 val cp2X = width * 0.72f
-                val cp2Y = height * 0.21f + 44f * cos(phase2)
-                val endY = height * 0.21f - 28f * sin(phase2)
+                val cp2Y = height * 0.21f + wave2Cp2 * cos(phase2)
+                val endY = height * 0.21f - wave2End * sin(phase2)
                 cubicTo(cp1X, cp1Y, cp2X, cp2Y, width, endY)
             }
 
@@ -167,7 +200,9 @@ fun NovaWavyBackground(
                         Color(0xFF818CF8),
                         Color(0xFFC084FC),
                         Color(0xFFF472B6)
-                    )
+                    ),
+                    start = Offset(0f, height * 0.15f),
+                    end = Offset(width, height * 0.25f)
                 ),
                 style = Stroke(width = 3.dp.toPx())
             )
@@ -177,20 +212,20 @@ fun NovaWavyBackground(
             // ----------------------------------------------------
             val midRibbon1 = Path().apply {
                 reset()
-                val startY = height * 0.46f + 35f * sin(phase1 * 0.8f)
+                val startY = height * 0.46f + ribbon1Amp * sin(phase1 * 0.8f)
                 moveTo(0f, startY)
                 val cp1X = width * 0.35f
-                val cp1Y = height * 0.46f - 52f * cos(phase1 * 0.8f)
+                val cp1Y = height * 0.46f - ribbon1Cp1 * cos(phase1 * 0.8f)
                 val cp2X = width * 0.65f
-                val cp2Y = height * 0.46f + 50f * sin(phase1 * 0.8f)
-                val endY = height * 0.46f - 30f * cos(phase1 * 0.8f)
+                val cp2Y = height * 0.46f + ribbon1Cp2 * sin(phase1 * 0.8f)
+                val endY = height * 0.46f - ribbon1End * cos(phase1 * 0.8f)
                 cubicTo(cp1X, cp1Y, cp2X, cp2Y, width, endY)
-                lineTo(width, endY + 85f)
+                lineTo(width, endY + ribbon1Width)
                 val bcp1X = width * 0.65f
-                val bcp1Y = height * 0.46f + 50f * sin(phase1 * 0.8f) + 85f
+                val bcp1Y = height * 0.46f + ribbon1Cp2 * sin(phase1 * 0.8f) + ribbon1Width
                 val bcp2X = width * 0.35f
-                val bcp2Y = height * 0.46f - 52f * cos(phase1 * 0.8f) + 85f
-                cubicTo(bcp1X, bcp1Y, bcp2X, bcp2Y, 0f, startY + 85f)
+                val bcp2Y = height * 0.46f - ribbon1Cp1 * cos(phase1 * 0.8f) + ribbon1Width
+                cubicTo(bcp1X, bcp1Y, bcp2X, bcp2Y, 0f, startY + ribbon1Width)
                 close()
             }
 
@@ -210,20 +245,20 @@ fun NovaWavyBackground(
 
             val midRibbon2 = Path().apply {
                 reset()
-                val startY = height * 0.58f + 40f * cos(phase3)
+                val startY = height * 0.58f + ribbon2Amp * cos(phase3)
                 moveTo(0f, startY)
                 val cp1X = width * 0.30f
-                val cp1Y = height * 0.58f + 55f * sin(phase3)
+                val cp1Y = height * 0.58f + ribbon2Cp1 * sin(phase3)
                 val cp2X = width * 0.70f
-                val cp2Y = height * 0.58f - 45f * cos(phase3)
-                val endY = height * 0.58f + 35f * sin(phase3)
+                val cp2Y = height * 0.58f - ribbon2Cp2 * cos(phase3)
+                val endY = height * 0.58f + ribbon2End * sin(phase3)
                 cubicTo(cp1X, cp1Y, cp2X, cp2Y, width, endY)
-                lineTo(width, endY + 70f)
+                lineTo(width, endY + ribbon2Width)
                 val bcp1X = width * 0.70f
-                val bcp1Y = height * 0.58f - 45f * cos(phase3) + 70f
+                val bcp1Y = height * 0.58f - ribbon2Cp2 * cos(phase3) + ribbon2Width
                 val bcp2X = width * 0.30f
-                val bcp2Y = height * 0.58f + 55f * sin(phase3) + 70f
-                cubicTo(bcp1X, bcp1Y, bcp2X, bcp2Y, 0f, startY + 70f)
+                val bcp2Y = height * 0.58f + ribbon2Cp1 * sin(phase3) + ribbon2Width
+                cubicTo(bcp1X, bcp1Y, bcp2X, bcp2Y, 0f, startY + ribbon2Width)
                 close()
             }
 
@@ -246,13 +281,13 @@ fun NovaWavyBackground(
             val bottomWave1 = Path().apply {
                 reset()
                 moveTo(0f, height)
-                val startY = height * 0.78f + 32f * sin(phase3)
+                val startY = height * 0.78f + botWave1Amp * sin(phase3)
                 lineTo(0f, startY)
                 val cp1X = width * 0.35f
-                val cp1Y = height * 0.78f - 48f * cos(phase3)
+                val cp1Y = height * 0.78f - botWave1Cp1 * cos(phase3)
                 val cp2X = width * 0.68f
-                val cp2Y = height * 0.78f + 42f * sin(phase3)
-                val endY = height * 0.78f - 26f * cos(phase3)
+                val cp2Y = height * 0.78f + botWave1Cp2 * sin(phase3)
+                val endY = height * 0.78f - botWave1End * cos(phase3)
                 cubicTo(cp1X, cp1Y, cp2X, cp2Y, width, endY)
                 lineTo(width, height)
                 close()
@@ -278,13 +313,13 @@ fun NovaWavyBackground(
             val bottomWave2 = Path().apply {
                 reset()
                 moveTo(0f, height)
-                val startY = height * 0.83f + 36f * cos(phase1)
+                val startY = height * 0.83f + botWave2Amp * cos(phase1)
                 lineTo(0f, startY)
                 val cp1X = width * 0.28f
-                val cp1Y = height * 0.83f + 52f * sin(phase1)
+                val cp1Y = height * 0.83f + botWave2Cp1 * sin(phase1)
                 val cp2X = width * 0.72f
-                val cp2Y = height * 0.83f - 44f * cos(phase1)
-                val endY = height * 0.83f + 32f * sin(phase1)
+                val cp2Y = height * 0.83f - botWave2Cp2 * cos(phase1)
+                val endY = height * 0.83f + botWave2End * sin(phase1)
                 cubicTo(cp1X, cp1Y, cp2X, cp2Y, width, endY)
                 lineTo(width, height)
                 close()
@@ -307,13 +342,13 @@ fun NovaWavyBackground(
             // Luminous glowing neon stroke along bottom wave 2 crest
             val bottomCrestPath = Path().apply {
                 reset()
-                val startY = height * 0.83f + 36f * cos(phase1)
+                val startY = height * 0.83f + botWave2Amp * cos(phase1)
                 moveTo(0f, startY)
                 val cp1X = width * 0.28f
-                val cp1Y = height * 0.83f + 52f * sin(phase1)
+                val cp1Y = height * 0.83f + botWave2Cp1 * sin(phase1)
                 val cp2X = width * 0.72f
-                val cp2Y = height * 0.83f - 44f * cos(phase1)
-                val endY = height * 0.83f + 32f * sin(phase1)
+                val cp2Y = height * 0.83f - botWave2Cp2 * cos(phase1)
+                val endY = height * 0.83f + botWave2End * sin(phase1)
                 cubicTo(cp1X, cp1Y, cp2X, cp2Y, width, endY)
             }
 
@@ -324,7 +359,9 @@ fun NovaWavyBackground(
                         Color(0xFF06B6D4),
                         Color(0xFFE879F9),
                         Color(0xFFF43F5E)
-                    )
+                    ),
+                    start = Offset(0f, height * 0.83f),
+                    end = Offset(width, height * 0.88f)
                 ),
                 style = Stroke(width = 3.dp.toPx())
             )
